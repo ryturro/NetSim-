@@ -17,3 +17,7 @@ private:
     std::set<ElementID> used_ID;
     std::set<ElementID> freed_ID;
 };
+
+class IPackageQueue{
+
+};
