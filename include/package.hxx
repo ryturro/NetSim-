@@ -14,6 +14,6 @@ public:
 
 private:
     ElementID ID_;
-    std::set<ElementID> used_ID;
-    std::set<ElementID> freed_ID;
+    static std::set<ElementID> used_ID;
+    static std::set<ElementID> freed_ID;
 };

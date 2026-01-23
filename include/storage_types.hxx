@@ -1,4 +1,5 @@
 #include "package.hxx"
+#include <list>
 
 enum class PackageQueueType {
     FIFO,
@@ -36,20 +37,20 @@ class IPackageQueue:IPackageStockpile{
 
 };
 
-class PackageQueue{
+class PackageQueue:IPackageQueue{
     public:
 
-    PackageQueue() = delate;
+    PackageQueue() = delete;
 
-    PakageQueue(PackageQueueType QueueType) : QueueType_(QueueType), PackageList_(){};
+    PackageQueue(PackageQueueType QueueType) : QueueType_(QueueType), PackageList_(){};
 
     void push(Package&& package) override {PackageList_.pushback(package);};
 
-    bool empty() const override{return if(PackageList_ == []);};
+    bool empty() const override{return PackageList_ == [];};
 
-    size_t size() const override {return PackageList_.size()};
+    size_t size() const override {return PackageList_.size();};
 
-    Package pop() override {return PackageList_[-1];};
+    Package pop() override ;
 
     PackageQueueType const override {return QueueType_;};
 
