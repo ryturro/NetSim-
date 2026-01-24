@@ -16,7 +16,7 @@ public:
     virtual void receive_package(Package&& p) = 0;
 
     virtual ElementID get_id() const = 0;
-    
+    /*
     virtual IPackageStockpile::const_iterator cbegin() const = 0;
 
     virtual IPackageStockpile::const_iterator cend() const = 0;
@@ -24,9 +24,9 @@ public:
     virtual IPackageStockpile::const_iterator begin() const = 0;
 
     virtual IPackageStockpile::const_iterator end() const = 0;
-
+    */
     virtual ReceiverType get_receiver_type() const = 0;
-
+    
     virtual ~IPackageReceiver() = default;
 };
 
@@ -151,7 +151,6 @@ public:
     IPackageStockpile::const_iterator begin() const override {return d_->begin();}
 
     IPackageStockpile::const_iterator end() const override {return d_->end();}
-    // bedzie dzialac jak piotrek z łaski swojej zadeklaruje iteratory
     */
 private:
    ElementID id_;
