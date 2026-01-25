@@ -1,5 +1,6 @@
 #include "package.hxx"
 #include <list>
+#include <cstddef>
 
 enum class PackageQueueType {
     FIFO,

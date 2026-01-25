@@ -4,22 +4,18 @@ std::set<ElementID> Package::used_ID;
 std::set<ElementID> Package::freed_ID;
 
 Package::Package() {
-    if (freed_ID.empty()){
+    if (!freed_ID.empty()) {
+        ID_ = *freed_ID.begin();
+        freed_ID.erase(freed_ID.begin());
+    } else {
         if (used_ID.empty()) {
             ID_ = 1;
+        } else {
+            ID_ = *used_ID.rbegin() + 1;
         }
-        else {
-            ID_ = *used_ID.end() + 1;
-        }
-    }
-    else {
-        ID_ = *freed_ID.begin();
-
     }
     used_ID.insert(ID_);
-    used_ID.erase(ID_);
 }
-
 Package& Package::operator=(Package&& package) {
     if (this == &package) {
         return *this;

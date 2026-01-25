@@ -5,7 +5,7 @@ class Package {
 public:
     Package();
     Package(ElementID ID) : ID_(ID){};
-    Package(Package&& package) : ID_(package.ID_) {};
+    Package(Package&& package) : ID_(package.ID_) { used_ID.insert(ID_); }
 
     Package& operator=(Package&& package);
     ElementID get_id() const {return ID_;}
