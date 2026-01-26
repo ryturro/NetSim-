@@ -43,5 +43,33 @@ IPackageReceiver* ReceiverPreferences::choose_receiver() {
 void PackageSender::send_package(){
     if(!buffer_.has_value()){return;}
     IPackageReceiver* receiver = receiver_preferences_.choose_receiver();
+    receiver -> receive_package(std::move(*buffer_));
+    buffer_.reset();
+}
 
-};
+void Worker::receive_package(Package &&p){
+    q_ -> push(std::move(p));
+}
+
+void Worker::do_work(Time t){
+    if (!buffer_.has_value()&& !q_->empty()){
+        t_=t;
+        buffer_.emplace(q_->pop());
+    }
+
+    if (t-t_+1 ==pd_){
+        push_package(Package(buffer_.value().get_id()));
+        buffer_.reset();   
+    }
+}
+
+void Ramp::deliver_goods(Time t){
+    if(!buffer_){
+        push_package(Package());
+        buffer_.emplace(id_);
+        t_=t;
+        }
+    if(t-di_==t_){
+        push_package(Package());
+        }
+    }

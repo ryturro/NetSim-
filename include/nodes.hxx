@@ -1,4 +1,4 @@
-#include "helpers.hpp"
+#include "helpers.hxx"
 #include "storage_types.hxx"
 #include "types.hxx"
 #include "package.hxx"
@@ -16,7 +16,7 @@ public:
     virtual void receive_package(Package&& p) = 0;
 
     virtual ElementID get_id() const = 0;
-    /*
+    
     virtual IPackageStockpile::const_iterator cbegin() const = 0;
 
     virtual IPackageStockpile::const_iterator cend() const = 0;
@@ -24,7 +24,7 @@ public:
     virtual IPackageStockpile::const_iterator begin() const = 0;
 
     virtual IPackageStockpile::const_iterator end() const = 0;
-    */
+
     virtual ReceiverType get_receiver_type() const = 0;
     
     virtual ~IPackageReceiver() = default;
@@ -67,7 +67,6 @@ public:
     PackageSender(PackageSender&&)=default;
 
     ReceiverPreferences receiver_preferences_; 
-    ReceiverPreferences receiver_preferences_; 
 
     void send_package(); 
 
@@ -90,7 +89,7 @@ public:
         id_=id;
         di_=di;
     }
-    void delivergoods(Time t);
+    void deliver_goods(Time t);
 
     TimeOffset get_delivery_interval() const{
         return di_;
@@ -116,10 +115,12 @@ public:
     }
 
     void do_work(Time t);
-    
-    TimeOffset get_processing_duration(){return pd_;};
 
-    Time get_processing_duration(){return t_;}; 
+    void receive_package(Package&& p);
+    
+    TimeOffset get_processing_duration() const {return pd_;};
+
+    Time get_package_processing_start_time() const {return t_;}; 
 
 
 
