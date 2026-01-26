@@ -23,6 +23,9 @@ include_directories(include)
 set(LIB_SOURCES
     src/package.cpp
     src/storage_types.cpp
+    src/storage_types.cpp
+    src/nodes.cpp      
+    src/helpers.cpp
 )
 
 # --- Sekcja 3: Główna aplikacja (main_app) ---

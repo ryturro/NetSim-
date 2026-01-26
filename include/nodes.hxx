@@ -106,7 +106,7 @@ private:
 
 };
 
-class Worker: public PackageSender{
+class Worker: public PackageSender, public IPackageReceiver {
 public:
     Worker(ElementID id,TimeOffset pd, std::unique_ptr<IPackageQueue> q){
         id_=id;
@@ -115,9 +115,16 @@ public:
     }
 
     void do_work(Time t);
-
     void receive_package(Package&& p);
     
+    ElementID get_id() const override { return id_; }
+    ReceiverType get_receiver_type() const override { return ReceiverType::WORKER; }
+    
+    IPackageStockpile::const_iterator begin() const override { return q_->cbegin(); }
+    IPackageStockpile::const_iterator end() const override { return q_->cend(); }
+    IPackageStockpile::const_iterator cbegin() const override { return q_->cbegin(); }
+    IPackageStockpile::const_iterator cend() const override { return q_->cend(); }
+
     TimeOffset get_processing_duration() const {return pd_;};
 
     Time get_package_processing_start_time() const {return t_;}; 
@@ -130,6 +137,7 @@ private:
    std::unique_ptr<IPackageQueue> q_;
    Time t_;
 
+   std::optional<Package> processing_buffer_ = std::nullopt;
 
 };
 

@@ -52,15 +52,17 @@ void Worker::receive_package(Package &&p){
 }
 
 void Worker::do_work(Time t){
-    if (!buffer_.has_value()&& !q_->empty()){
+    if (!processing_buffer_.has_value()&& !q_->empty()){
+        processing_buffer_.emplace(q_->pop());
         t_=t;
-        buffer_.emplace(q_->pop());
     }
-
-    if (t-t_+1 ==pd_){
-        push_package(Package(buffer_.value().get_id()));
-        buffer_.reset();   
+    if(processing_buffer_.has_value()){
+        if (t-t_+1 ==pd_){
+            push_package(std::move(processing_buffer_.value()));
+            processing_buffer_.reset();   
+        }
     }
+    
 }
 
 void Ramp::deliver_goods(Time t){
