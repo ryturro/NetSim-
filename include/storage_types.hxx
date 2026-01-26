@@ -1,5 +1,3 @@
-#include "package.hxx"
-#include <list>
 #ifndef STORAGE_TYPES_HXX
 #define STORAGE_TYPES_HXX
 
@@ -12,15 +10,6 @@ enum class PackageQueueType {
     LIFO
 };
 
-class IPackageStockpile {
-    using const_iterator = std::list<Package>::const_iterator;
-};
-
-class IPackageQueue : public IPackageStockpile {
-
-};
-
-class PackageQueue : public IPackageQueue {
 class IPackageStockpile{
     public:
 

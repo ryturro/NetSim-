@@ -67,7 +67,7 @@ public:
     PackageSender(PackageSender&&)=default;
 
     ReceiverPreferences receiver_preferences_; 
-    RecivePreferences receiver_preferences_; 
+    ReceiverPreferences receiver_preferences_; 
 
     void send_package(); 
 
@@ -119,7 +119,7 @@ public:
     
     TimeOffset get_processing_duration(){return pd_;};
 
-    Time get_processing_duration(){return t_;}; //o co tu chodzi?
+    Time get_processing_duration(){return t_;}; 
 
 
 

@@ -40,3 +40,8 @@ IPackageReceiver* ReceiverPreferences::choose_receiver() {
     return nullptr; //pusty kontener
 }
 
+void PackageSender::send_package(){
+    if(!buffer_.has_value()){return;}
+    IPackageReceiver* receiver = receiver_preferences_.choose_receiver();
+
+};
