@@ -94,7 +94,7 @@ public:
     TimeOffset get_delivery_interval() const{
         return di_;
     };
-    ElementID get_id(){
+    ElementID get_id() const override {
         return id_;
     }
 
