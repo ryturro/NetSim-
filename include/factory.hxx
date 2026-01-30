@@ -5,6 +5,8 @@
 
 template<class Node>
 
+template<class Node>
+
 class NodeCollection{
 public:
 
@@ -79,7 +81,14 @@ public:
     NodeCollection<Storehouse>::const_iterator storehouse_cbegin() const {return storehouse_kontyner.cbegin();}
 
     NodeCollection<Storehouse>::const_iterator storehouse_cend() const {return storehouse_kontyner.cbegin();}
+    
+    bool is_consistent() const;
 
+    void do_deliveries(Time);
+
+    void do_package_passing();
+
+    void do_work(Time);
 private:
     template<class Node>
     void remove_receiver(NodeCollection<Node>& collection, ElementID id);

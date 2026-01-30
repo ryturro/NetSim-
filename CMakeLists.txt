@@ -26,6 +26,7 @@ set(LIB_SOURCES
     src/storage_types.cpp
     src/nodes.cpp      
     src/helpers.cpp
+    src/factory.cpp
 )
 
 # --- Sekcja 3: Główna aplikacja (main_app) ---
