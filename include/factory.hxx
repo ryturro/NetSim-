@@ -1,3 +1,9 @@
+#ifndef NETSIM_FACTORY_HXX
+#define NETSIM_FACTORY_HXX
+
+#include "nodes.hxx"
+#include "storage_types.hxx"
+
 class NodeCollection{
 public:
     using container = std::list<Node>;
@@ -33,3 +39,4 @@ public:
 private:
     container Kontyner
 };
+#endif //NETSIM_FACTORY_HXX
