@@ -121,7 +121,7 @@ public:
     void receive_package(Package&& p);
     
     ElementID get_id() const override { return id_; }
-    //ReceiverType get_receiver_type() const override { return ReceiverType::WORKER; }
+    ReceiverType get_receiver_type() const override { return ReceiverType::WORKER; }
     
     IPackageStockpile::const_iterator begin() const override { return q_->cbegin(); }
     IPackageStockpile::const_iterator end() const override { return q_->cend(); }
@@ -155,7 +155,7 @@ public:
     
     void receive_package(Package&& p) override;
 
-    //ReceiverType get_receiver_type() const override {return ReceiverType::STOREHOUSE;}
+    ReceiverType get_receiver_type() const override {return ReceiverType::STOREHOUSE;}
     
     IPackageStockpile::const_iterator cbegin() const override {return d_->cbegin();}
 
