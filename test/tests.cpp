@@ -1,6 +1,7 @@
-#include <gtest/gtest.h>
-#include "factory.cpp"
-#include ""
+#include "gtest/gtest.h"
+#include "factory.hxx"
+#include "nodes.hxx"
+#include "package.hxx"
 
 TEST(FactoryTest, IsConsistentCorrect) {
     // R -> W -> S

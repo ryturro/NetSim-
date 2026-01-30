@@ -28,7 +28,7 @@ public:
 
     virtual IPackageStockpile::const_iterator end() const = 0;
 
-    //virtual ReceiverType get_receiver_type() const = 0;
+    virtual ReceiverType get_receiver_type() const = 0;
     
     virtual ~IPackageReceiver() = default;
 };
@@ -97,7 +97,7 @@ public:
     TimeOffset get_delivery_interval() const{
         return di_;
     };
-    ElementID get_id() const override {
+    ElementID get_id() const {
         return id_;
     }
 

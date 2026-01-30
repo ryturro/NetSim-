@@ -1,7 +1,38 @@
 #include "factory.hxx"
 #include "nodes.hxx"
 #include <stdexcept>
+#include <algorithm>
 
+bool has_reachable_storehouse(const PackageSender* sender, std::map<const PackageSender*, NodeColor>& node_colors) {
+    if (node_colors[sender] == NodeColor::VERIFIED) {
+        return true;
+    }
+
+    node_colors[sender] = NodeColor::VISITED;
+
+    if (sender->receiver_preferences_.get_preferences().empty()) {
+        throw std::logic_error("Sender does not have any receivers");
+    }
+
+    for (const auto& receiver : sender->receiver_preferences_.get_preferences()) {
+        if (receiver.first->get_receiver_type() == ReceiverType::STOREHOUSE) {
+            return true;
+        } else if (receiver.first->get_receiver_type() == ReceiverType::WORKER) {
+            PackageSender* sendrecv_ptr = dynamic_cast<PackageSender*>(dynamic_cast<class Worker*>(receiver.first));
+
+            if (sendrecv_ptr == sender) {
+                continue;
+            }
+
+            if (node_colors[sendrecv_ptr] == NodeColor::UNVISITED && has_reachable_storehouse(sendrecv_ptr, node_colors)) {
+                return true;
+            }
+        }
+    }
+
+    node_colors[sender] = NodeColor::VERIFIED;
+    throw std::logic_error("Error");
+}
 void Factory::remove_worker(ElementID id){
     Worker* node = &(*worker_kontyner.find_by_id(id));
 
@@ -83,7 +114,7 @@ void Factory::remove_receiver(NodeCollection<Node>& collection, ElementID id) {
 
     auto receiver_ptr = dynamic_cast<IPackageReceiver*>(iter);
 
-    for (auto& ramp: cont_r) {
+    for (auto& ramp: ramp_kontyner) {
         auto& _preferences = ramp.receiver_preferences_.get_preferences();
         for (auto _preference: _preferences) {
             if (_preference.first == receiver_ptr) {
@@ -93,7 +124,7 @@ void Factory::remove_receiver(NodeCollection<Node>& collection, ElementID id) {
         }
     }
 
-    for (auto& worker: cont_w) {
+    for (auto& worker: worker_kontyner) {
         auto& _preferences = worker.receiver_preferences_.get_preferences();
         for (auto _preference: _preferences) {
             if (_preference.first == receiver_ptr) {
