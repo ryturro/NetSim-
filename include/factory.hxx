@@ -46,17 +46,17 @@ private:
 
 class Factory{
 public:
-    void add_ramp(Ramp&& ramp) {}
+    void add_ramp(Ramp&& ramp) {ramp_kontyner.add(std::move(ramp));}
 
-    void add_worker(Worker&& worker) {}
+    void add_worker(Worker&& worker) {worker_kontyner.add(std::move(worker));}
 
-    void add_storehouse(Storehouse&& storehouse) {}
+    void add_storehouse(Storehouse&& storehouse) {storehouse_kontyner.add(std::move(storehouse));}
 
-    void remove_ramp(ElementID id);
+    void remove_ramp(ElementID id) {ramp_kontyner.remove_by_id(id);}
 
-    void remove_ramp(ElementID id);
+    void remove_worker(ElementID id);
 
-    void remove_ramp(ElementID id);
+    void remove_storehouse(ElementID id);
 
     NodeCollection<Ramp>::iterator find_ramp_by_id(ElementID id) {return ramp_kontyner.find_by_id(id);}
     
