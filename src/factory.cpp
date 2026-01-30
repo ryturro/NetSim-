@@ -1,6 +1,32 @@
 #include "factory.hxx"
 #include "nodes.hxx"
 
+void Factory::remove_worker(ElementID id){
+    Worker* node = &(*worker_kontyner.find_by_id(id));
+
+    std::for_each(worker_kontyner.begin(), worker_kontyner.end(), [node](Worker& worker) {
+        worker.receiver_preferences_.remove_receiver(node);
+    });
+
+    std::for_each(ramp_kontyner.begin(), ramp_kontyner.end(), [node](Ramp& ramp) {
+        ramp.receiver_preferences_.remove_receiver(node);
+    });
+
+    worker_kontyner.remove_by_id(id);
+}
+
+void Factory::remove_storehouse(ElementID id){
+    Storehouse* node = &(*storehouse_kontyner.find_by_id(id));
+    std::for_each(worker_kontyner.begin(), worker_kontyner.end(), [&node](Worker& ramp) {
+        ramp.receiver_preferences_.remove_receiver(node);
+    });
+
+    std::for_each(worker_kontyner.begin(), worker_kontyner.end(), [&node](Worker& worker) {
+        worker.receiver_preferences_.remove_receiver(node);
+    });
+    storehouse_kontyner.remove_by_id(id);
+}
+
 bool Factory::is_consistent() const {
   std::map<const PackageSender*, NodeColor> kolor;
 
