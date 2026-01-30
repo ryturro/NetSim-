@@ -2,7 +2,8 @@
 #define NETSIM_FACTORY_HXX
 
 #include "nodes.hxx"
-
+#include <algorithm>
+#include <utility>
 
 bool has_reachable_storehouse(const PackageSender* sender, std::map<const PackageSender*, NodeColor>& node_colors);
 

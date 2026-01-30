@@ -1,3 +1,7 @@
+#ifndef NODES_HXX
+#define NODES_HXX
+
+
 #include "helpers.hxx"
 #include "storage_types.hxx"
 #include "types.hxx"
@@ -170,3 +174,4 @@ private:
    std::unique_ptr<IPackageStockpile> d_;
 };
 
+#endif
