@@ -120,7 +120,7 @@ public:
         pd_=pd;
         q_=std::move(q);
     }
-
+    IPackageQueue* get_queue() const {return q_.get();}
     void do_work(Time t);
     void receive_package(Package&& p);
     

@@ -73,15 +73,15 @@ public:
 
     NodeCollection<Ramp>::const_iterator ramp_cbegin() const {return ramp_kontyner.cbegin();}
 
-    NodeCollection<Ramp>::const_iterator ramp_cend() const {return ramp_kontyner.cbegin();}
+    NodeCollection<Ramp>::const_iterator ramp_cend() const {return ramp_kontyner.cend();}
 
     NodeCollection<Worker>::const_iterator worker_cbegin() const {return worker_kontyner.cbegin();}
 
-    NodeCollection<Worker>::const_iterator worker_cend() const {return worker_kontyner.cbegin();}
+    NodeCollection<Worker>::const_iterator worker_cend() const {return worker_kontyner.cend();}
 
     NodeCollection<Storehouse>::const_iterator storehouse_cbegin() const {return storehouse_kontyner.cbegin();}
 
-    NodeCollection<Storehouse>::const_iterator storehouse_cend() const {return storehouse_kontyner.cbegin();}
+    NodeCollection<Storehouse>::const_iterator storehouse_cend() const {return storehouse_kontyner.cend();}
     
     bool is_consistent() const;
 
@@ -98,5 +98,21 @@ private:
     NodeCollection<Worker> worker_kontyner;
     NodeCollection<Storehouse> storehouse_kontyner;
 };
+
+enum class ElementType {
+    RAMP, WORKER, STOREHOUSE, LINK
+};
+
+struct ParsedLineData {
+    ElementType element_type;
+    std::map<std::string, std::string> parameters;
+};
+
+ParsedLineData parse_line(std::string& line);
+
+Factory load_factory_structure(std::istream& is);
+
+void save_factory_structure(Factory& factory, std::ostream& os);
+
 
 #endif //NETSIM_FACTORY_HXX
